@@ -286,7 +286,7 @@ const parseConfig = (config) => {
   return newConfig;
 };
 
-class FytaPlantCard extends LitElement {
+class FytaGardenCard extends LitElement {
   static getConfigElement() {
     return document.createElement(`${CUSTOM_CARD_NAME}-editor`);
   }
@@ -1039,9 +1039,9 @@ class FytaPlantCard extends LitElement {
   }
 }
 
-customElements.define(CUSTOM_CARD_NAME, FytaPlantCard);
+customElements.define(CUSTOM_CARD_NAME, FytaGardenCard);
 
-export class FytaPlantCardEditor extends LitElement {
+export class FytaGardenCardEditor extends LitElement {
   static properties = {
     hass: { type: Object },
     config: { state: true },
@@ -1348,7 +1348,7 @@ export class FytaPlantCardEditor extends LitElement {
   }
 }
 
-customElements.define(`${CUSTOM_CARD_NAME}-editor`, FytaPlantCardEditor);
+customElements.define(`${CUSTOM_CARD_NAME}-editor`, FytaGardenCardEditor);
 
 window.customCards = window.customCards || [];
 window.customCards.push({
