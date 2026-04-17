@@ -386,17 +386,20 @@ class FytaGardenCard extends LitElement {
   }
 
   setConfig(config) {
-    if (!config) {
-      throw new Error('Invalid configuration');
-    }
-
+    if (!config) return;
+  
     const newConfig = parseConfig(config);
-    this.config = newConfig;
-    this._configDeviceIds = newConfig.device_ids.filter((deviceId) => deviceId);
-
-    if (this.hass) {
-      this.requestUpdate();
-    }
+  
+    this.config = {
+      ...DEFAULT_CONFIG,
+      ...newConfig,
+      sensors: newConfig.sensors ?? DEFAULT_CONFIG.sensors,
+      device_ids: newConfig.device_ids ?? [],
+    };
+  
+    this._configDeviceIds = this.config.device_ids.filter(Boolean);
+  
+    this.requestUpdate();
   }
 
   _calculateDaysFromNow(inputDateString) {
@@ -1053,18 +1056,23 @@ export class FytaGardenCardEditor extends LitElement {
   }
 
   _addDevice(event) {
-    console.debug('Add device:', JSON.stringify(event), event);
-
-    const deviceId = event.detail.value;
-    if (deviceId === '') return;
-
-    const newDevices = this.config.device_ids.concat(deviceId).filter((deviceId) => deviceId);
-    const config = { ...this.config, device_ids: newDevices };
-    this._configDeviceIds = newDevices;
-
-    event.target.value = ''; // Clear the input field after adding
-
-    this._configChanged(config);
+    const value = event.detail?.value;
+  
+    const deviceId =
+      typeof value === 'string'
+        ? value
+        : value?.device_id || value?.id;
+  
+    if (!deviceId) return;
+  
+    const newDevices = [...this.config.device_ids, deviceId].filter(Boolean);
+  
+    this._configChanged({
+      ...this.config,
+      device_ids: newDevices,
+    });
+  
+    event.target.value = '';
   }
 
   _computeLabel(schema) {
