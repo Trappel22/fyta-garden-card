@@ -134,18 +134,7 @@ const SCHEMA_PART_ONE = [
   {
     name: 'header_device',
     type: 'constant',
-    label: 'Plant',
-  },
-  {
-    name: 'device_ids',
-    label: 'Device (Required)',
-    required: true,
-    selector: {
-      device: {
-        integration: 'fyta',
-        multiple: true,
-      },
-    },
+    label: 'Plants',
   },
 ];
 
@@ -1242,7 +1231,7 @@ export class FytaGardenCardEditor extends LitElement {
                         .placeholder=${'Select a FYTA device'}
                         .deviceFilter=${this._deviceFilter}
                         .includeDomains=${['sensor', 'image']}
-                        .excludeDevices=${this._configDeviceIds}
+                        .excludeDevices=${this._configDeviceIds.filter(id => id !== deviceId)}
                         @value-changed=${this._deviceChange}
                       ></ha-device-picker>
                     </div>`
