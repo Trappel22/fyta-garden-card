@@ -1026,7 +1026,7 @@ class FytaGardenCard extends LitElement {
           <div class="meter">
             <span
               class=${this.config.state_color_sensor ? meterState.class : ''}
-              style="width: ${meterState.percentage}%;">
+              style="height: ${meterState.percentage}%;">
             </span>
           </div>
         </div>
