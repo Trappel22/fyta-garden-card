@@ -132,9 +132,19 @@ const SCHEMA_PART_ONE = [
     default: DEFAULT_CONFIG.title,
   },
   {
-    name: 'header_devices',
+    name: 'header_device',
     type: 'constant',
-    label: 'Devices',
+    label: 'Plant',
+  },
+  {
+    name: 'device_id',
+    label: 'Device (Required)',
+    required: true,
+    selector: {
+      device: {
+        integration: 'fyta',
+      },
+    },
   },
 ];
 
