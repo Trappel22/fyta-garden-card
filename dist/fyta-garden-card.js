@@ -137,12 +137,13 @@ const SCHEMA_PART_ONE = [
     label: 'Plant',
   },
   {
-    name: 'device_id',
+    name: 'device_ids',
     label: 'Device (Required)',
     required: true,
     selector: {
       device: {
         integration: 'fyta',
+        multiple: true,
       },
     },
   },
